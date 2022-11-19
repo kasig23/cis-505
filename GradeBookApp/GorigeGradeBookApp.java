@@ -24,6 +24,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+/**
+ * CIS505 
+ * 
+ * This class is useful to save and view of Student grades details
+ * 
+ * @author kasiv
+ *
+ */
 public class GorigeGradeBookApp extends Application {
 
 	// create Label
@@ -105,10 +113,10 @@ public class GorigeGradeBookApp extends Application {
 	}
 
 	private void clearFormFields() {
-		this.txtFirstName.setText("");
-		this.txtLastName.setText("");
+		this.txtFirstName.clear();
+		this.txtLastName.clear();
 		this.comboBox.setValue("");
-		this.txtCourse.setText("");
+		this.txtCourse.clear();
 
 	}
 
@@ -119,10 +127,10 @@ public class GorigeGradeBookApp extends Application {
 
 		try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
 			dataLines.stream().map(this::convertToCSV).forEach(pw::println);
-			this.txtFirstName.setText("");
-			this.txtLastName.setText("");
+			this.txtFirstName.clear();
+			this.txtLastName.clear();
 			this.comboBox.setValue("");
-			this.txtCourse.setText("");
+			this.txtCourse.clear();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -139,28 +147,20 @@ public class GorigeGradeBookApp extends Application {
 	public void viewData() {
 		// parsing a CSV file into Scanner class constructor
 		Scanner sc = null;
-		String output = "";
-		StringBuilder s = new StringBuilder();
+
 		try {
 			sc = new Scanner(new File("grades.csv"));
 			String skipHeader = sc.nextLine();
+			List<Student> listStudent = new ArrayList();
 			// sets the delimiter pattern
 			while (sc.hasNext()) // returns a boolean value
 			{
 				String[] data = sc.nextLine().split(",");
-
-				output = rowsData.replace("firstName", data[0]).replace("lastName", data[1]).replace("course", data[2])
-						.replace("grade", data[3]);
-
-				s.append(output);
+				listStudent.add(new Student(data[0], data[1], data[2], data[3]));
 
 			}
 
-			String header = "<html><table border=1><tr><th>First Name</td><th>Last Name</td><th>Course</td><th>Grade</td></tr>"
-					+ s.toString() + "</table></html>";
-
-			JLabel newLabel = new JLabel(header);
-			JOptionPane.showMessageDialog(null, newLabel);
+			viewDta(listStudent);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -168,6 +168,23 @@ public class GorigeGradeBookApp extends Application {
 			sc.close(); // closes the scanner
 		}
 
+	}
+
+	public void viewDta(List<Student> list) {
+		String output = "";
+		StringBuilder sb = new StringBuilder();
+		for (Student std : list) {
+			output = rowsData.replace("firstName", std.getFirstName()).replace("lastName", std.getLastName())
+					.replace("course", std.getCourse()).replace("grade", std.getGrade());
+
+			sb.append(output);
+		}
+
+		String header = "<html><table border=1><tr><th>First Name</td><th>Last Name</td><th>Course</td><th>Grade</td></tr>"
+				+ sb.toString() + "</table></html>";
+
+		JLabel newLabel = new JLabel(header);
+		JOptionPane.showMessageDialog(null, newLabel);
 	}
 
 	public static void main(String[] args) {
