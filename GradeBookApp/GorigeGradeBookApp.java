@@ -112,6 +112,9 @@ public class GorigeGradeBookApp extends Application {
 
 	}
 
+	/*
+	 * this method is used to clear the form fields
+	 */
 	private void clearFormFields() {
 		this.txtFirstName.clear();
 		this.txtLastName.clear();
@@ -120,6 +123,9 @@ public class GorigeGradeBookApp extends Application {
 
 	}
 
+	/*
+	 * this method is used to save data to csv file
+	 */
 	public void saveDataToCSV() {
 
 		dataLines.add(new String[] { txtFirstName.getText(), txtLastName.getText(), txtCourse.getText(),
@@ -144,8 +150,10 @@ public class GorigeGradeBookApp extends Application {
 		return Stream.of(data).collect(Collectors.joining(","));
 	}
 
+	/*
+	 * this method is used to view data from csv
+	 */
 	public void viewData() {
-		// parsing a CSV file into Scanner class constructor
 		Scanner sc = null;
 
 		try {
