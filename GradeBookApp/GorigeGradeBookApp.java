@@ -107,7 +107,7 @@ public class GorigeGradeBookApp extends Application {
 		primaryStage.setScene(myScene);
 		primaryStage.show();
 		btnClear.setOnAction(e -> clearFormFields());
-		btnSave.setOnAction(e -> givenDataArray_whenConvertToCSV_thenOutputCreated());
+		btnSave.setOnAction(e -> saveDataToCSV());
 		btnView.setOnAction(e -> viewData());
 
 	}
@@ -120,7 +120,7 @@ public class GorigeGradeBookApp extends Application {
 
 	}
 
-	public void givenDataArray_whenConvertToCSV_thenOutputCreated() {
+	public void saveDataToCSV() {
 
 		dataLines.add(new String[] { txtFirstName.getText(), txtLastName.getText(), txtCourse.getText(),
 				comboBox.getValue().toString() });

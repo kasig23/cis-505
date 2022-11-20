@@ -77,6 +77,7 @@ public class Student {
 		this.grade = grade;
 	}
 	
+	@Override
 	 public String toString() {
 	        return String.format("Name: %s, %s\nCourse: %s\nLetter Grade: %s", lastName, firstName,
 	                course, grade);
